@@ -1,3 +1,10 @@
+<?php
+session_start();//start de sessie
+$db = new PDO('mysql:host=localhost;port=3307;dbname=pad;charset=utf8', 'root', 'root');//pdo verbinding voor sql queries
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+ ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,6 +21,8 @@
   <body>
     <h2>My Map</h2>
     <div id="map" class="map"></div>
+    <h1><div id="info" class="info">Select a point to check noise pollution</div></h1>
+    <p>The measured noise pollution in decibel is: <div id="db" class="db"></div></p>
     <script type="text/javascript">
     // a planet API key is required
 var planet_api_key = '7c43e05581e94ad9b907802ec0e9c903'
@@ -93,36 +102,115 @@ function get_items(item_type, filter, callback) {
 }
 
 function build_open_layers_map(layers) {
-  var map = new ol.Map({
-    layers: layers,
-    target: 'map',
-    view: new ol.View({
-      center: ol.proj.fromLonLat([4.907,52.366]),//Amsterdam coords
-      zoom: 12
-    })
-  })
+
 }
 
-
+var senseName = '0'
+var rome = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.fromLonLat([4.907,52.366]))
+});
+rome.setStyle(new ol.style.Style({
+        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+          color: '#8959A8',
+          crossOrigin: 'anonymous',
+          src: 'https://openlayers.org/en/v4.6.4/examples/data/dot.png'
+        }))
+      }));
+      var vectorSource = new ol.source.Vector({
+              features: [rome]
+            });
 // run the script
 get_items("PSScene4Band", combined_filter, function(response) {
   // add OSM as the first layer
   layers = [
     new ol.layer.Tile({
       source: new ol.source.OSM()
-    })
+    }),
+    new ol.layer.Vector({
+            source: vectorSource,
+            zIndex: 100
+          })
   ]
   // loop over planet items from the seach api
   // and add them as layers
-  response["features"].forEach(feature =>{
+  var counter = 0;
+  while (counter < 1) {
+    response["features"].forEach(feature =>{
     layers.push(
       new ol.layer.Tile({
         source: new ol.source.XYZ({url: planet_template_url("PSScene3Band", feature["id"])})
       })
     )
+    })
+    counter++;
+  }
+  var view = new ol.View({
+    center: ol.proj.fromLonLat([4.907,52.366]),//Amsterdam coords
+    zoom: 12
+  })
+  build_open_layers_map(layers)
+  var map = new ol.Map({
+    layers: layers,
+    target: 'map',
+    view: view
   })
 
-  build_open_layers_map(layers)
+  var highNoise = 61
+  var mediumNoise = 40
+  var lowNoise = 20
+  rome.setProperties({
+    'db': highNoise,
+    'info': 'Wibauthuis'
+  })
+  if(rome.get('db') > 60){
+    rome.setStyle(new ol.style.Style({
+            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+              color: 'red',
+              crossOrigin: 'anonymous',
+              src: 'https://openlayers.org/en/v4.6.4/examples/data/dot.png'
+            }))
+          }));
+  }
+  else if (rome.get('db') > 40) {
+    rome.setStyle(new ol.style.Style({
+            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+              color: 'yellow',
+              crossOrigin: 'anonymous',
+              src: 'https://openlayers.org/en/v4.6.4/examples/data/dot.png'
+            }))
+          }));
+  }
+  else {
+    rome.setStyle(new ol.style.Style({
+            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+              color: 'green',
+              crossOrigin: 'anonymous',
+              src: 'https://openlayers.org/en/v4.6.4/examples/data/dot.png'
+            }))
+          }));
+  }
+
+      // select interaction working on "singleclick"
+      var select = new ol.interaction.Select()
+      map.addInteraction(select);
+      select.on('select', function(e) {
+    console.log(e.target.getFeatures().item(0).getProperties().info)
+    console.log(e.target.getFeatures().item(0).getProperties().db)
+    var target = e.target.getFeatures().item(0).getProperties()
+    document.getElementById("info").innerHTML = target.info
+    document.getElementById("db").innerHTML = target.db
+  })
+
+  function addNoise(){
+    <?php
+    $recentMeasure = $db->prepare("SELECT decibel, MAX(timeTaken), sensorId FROM sensorintel");
+    $recentMeasure->execute();
+    $results = $recentMeasure->fetch(PDO::FETCH_ASSOC);
+    $measure = $results['decibel'];
+    ?>
+    alert(<?php echo($measure); ?>);
+  }
+  addNoise();
 })
     /*var planet_url = https://tiles.planet.com/data/v1/PSScene4Band/20180305_095607_0f2a/100/100/10.png?api_key=7c43e05581e94ad9b907802ec0e9c903;
       var map = new ol.Map({
