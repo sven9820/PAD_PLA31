@@ -277,6 +277,9 @@ include "chart.php";
             $chart = new chart();
             $chart->make(1, $dataGetter->getAllRecs());
             ?>
+            var value = <?php echo json_encode($dataGetter->getAllRecs(), JSON_NUMERIC_CHECK);?>;
+            console.log(value);
+
             // select interaction working on "singleclick"
             var select = new ol.interaction.Select()
             map.addInteraction(select);
@@ -286,6 +289,8 @@ include "chart.php";
                 var target = e.target.getFeatures().item(0).getProperties()
                 document.getElementById("info").innerHTML = target.info
                 document.getElementById("db").innerHTML = target.db
+                console.log(target.name);
+
             })
             function addNoise(sensor){
                 <?php

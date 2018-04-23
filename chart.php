@@ -48,7 +48,7 @@ class chart extends output{
 	}]
 });
 chart.render();
-$(\"#addDataPoint\").click(function () {}
+
 
 ";
     }
