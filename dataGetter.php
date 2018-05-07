@@ -18,7 +18,7 @@ class dataGetter{
 
       $recentMeasure = $db->prepare("SELECT * FROM `sensorintel`");
       $recentMeasure->execute();
-      $this->allMeasures = $recentMeasure->fetchAll();
+      $this->allMeasures = $recentMeasure->fetchAll(PDO::FETCH_ASSOC);
     }
     function getReturn(){
         return $this->returns;

@@ -20,7 +20,8 @@ class chart extends output{
             }
 
         }
-        echo "var chart = new CanvasJS.Chart(\"chartContainer\", {
+        echo "var dps = ".json_encode($this->dataPoints, JSON_NUMERIC_CHECK)."
+        var chart = new CanvasJS.Chart(\"chartContainer\", {
 	animationEnabled: true,
 	//theme: \"light2\",
 	title:{
@@ -44,7 +45,7 @@ class chart extends output{
 	},
 	data: [{
 		type: \"area\",
-		dataPoints: ".json_encode($this->dataPoints, JSON_NUMERIC_CHECK)."
+		dataPoints: dps
 	}]
 });
 chart.render();

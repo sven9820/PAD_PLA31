@@ -289,7 +289,25 @@ include "chart.php";
                 var target = e.target.getFeatures().item(0).getProperties()
                 document.getElementById("info").innerHTML = target.info
                 document.getElementById("db").innerHTML = target.db
-                console.log(target.name);
+                console.log(target);
+                console.log(dps);
+                //chart = null;
+                dps = [];
+
+
+                for (var i = 0; i < value.length; i++) {
+
+                    console.log(value[i])
+                    if(value[i].sensorId == target.name){
+                        dps.push({
+                            label: value[i].timeTaken,
+                            y : value[i].decibel
+                        });
+                    }
+                }
+                chart.options.data[0].dataPoints = dps;
+            chart.render();
+
 
             })
             function addNoise(sensor){
