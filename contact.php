@@ -1,3 +1,33 @@
+<?php
+
+if ($_POST['submit']) {
+
+  if(!$_POST['name']){
+    $error="<br/>- Please enter your name";
+  }
+  if(!$_POST['email']){
+    $error.="<br/>- Please enter your email";
+  }
+  if(!$_POST['message']){
+    $error.="<br/>- Please enter your message";
+  }
+  if(!$_POST['check']){
+    $error.="<br/>- Please confirm you are human";
+  }
+  if ($error) {
+    $result='<div class="alert alert-danger" role="alert"> Some of the fields are not filled. Please correct the following: '.$error.'</div>';
+  } else {
+    mail("fenerli_70@live.nl", "Contact Form", "Name: ".$_POST['name'].
+    "Email: ".$_POST['email'].
+    "Message: ".$_POST['message']);
+
+    {
+      $result='<div class="alert alert-success" role="alert"> Thank you for contacting us, you will get a respond soon. </div>';
+    }
+  }
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -15,46 +45,66 @@
 
   <body>
 
-   <!--Achtergrond foto -->
+    <!--Background begin -->
     <div id="intro" class="view">
-      <div class="full-bg-img"></div>
+    <div class="full-bg-img"></div>
+    <!-- Einde background -->
 
-      <!--Kop -->
-      <h1 class="site-heading text-center text-white d-none d-lg-block">
-        <span class="site-heading-upper  mb-3">Project Agile Development Planet</span>
-      </h1>
+    <!-- Site heading begin -->
+    <h1 class="site-heading text-center text-white d-none d-lg-block">
+      <span class="site-heading-upper  mb-3">Project Agile Development Planet</span>
+    </h1>
+    <!-- Einde site heading -->
+
 
       <!-- Menu bar -->
         <?php
         session_start();//start de sessie
         include "navigation.php";
-
         ?>
       <!--Einde menu bar -->
 
       <!-- Contact form -->
+    <section id="contact">
     <div class="container">
-      <form method="post" action="">
-        <h2 class="text-center">Contact Us</h2>
-        <div class="form-group has-success has-feedback">
-          <input class="form-control" type="text" name="name" placeholder="Name">
-        <div class="form-group has-error has-feedback">
-          <input class="form-control" type="email" name"email" placeholder="Email">
-          <p class="help-block">Please enter a correct email address.</p>
+    <div class="jumbotron">
+      <div class="col-sm-10" style="margin-left: 250px; margin-top: -50px;>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-3" >
+         <h1 class="text-center"> Contact Form</h1>
+         
+        <?php echo $result;?>
+
+          <form method="post" role="form">
+            <div class="form-group">
+              <input type="text" name="name" class="form-control" placeholder="Please enter your name..." value="<?php echo $_POST['name']; ?>">
+            </div>
+
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" placeholder="Please enter your email..." value="<?php echo $_POST['email']; ?>">
+            </div>
+
+            <div class="form-group">
+              <textarea name="message" rows="3" class="form-control" placeholder="Please enter your message..." value="<?php echo $_POST['message']; ?>"></textarea>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="check"> I am human
+              </label>
+            </div>
+
+          <div align="center">
+            <input type="submit" name="submit" class="btn btn-danger btn btn-outline-danger" value="Send message"/>
+          </div>
         </div>
-        <div class="form-group"
-          <textarea class="form-control" rows="14" name"message" placeholder="message"></textarea>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-danger" type="submit">send </button>
-        </div>
-      </form>
-    </div>      
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Einde contact form -->
 
-
-
-
-
+</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

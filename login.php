@@ -15,32 +15,31 @@
 
   <body>
 
-   <!--Achtergrond foto -->
+    <!--Background begin -->
     <div id="intro" class="view">
-      <div class="full-bg-img"></div>
+    <div class="full-bg-img"></div>
+    <!-- Background einde -->
 
-      <!--Kop -->
+      <!--Site heading begin -->
       <h1 class="site-heading text-center text-white d-none d-lg-block">
         <span class="site-heading-upper  mb-3">Project Agile Development Planet</span>
       </h1>
+      <!-- Site heading einde -->
 
       <!-- Menu bar -->
-
         <?php
         include "navigation.php";
         ?>
-      <!--einde menu bar -->
+      <!--Einde menu bar -->
 
       <!-- Login Start -->
       <div class="container">
-        <div class="col-sm-10" style="width: 600px; margin-left: 250px;
-        margin-top: 50px;">
-          <div class="jumbotron">
+        <div class="jumbotron">
+          <div class="col-md-6 col-md-offset-3" style="margin-left: 275px; margin-top: 25px;>
+            <div class="row">
+              <div class="col-md-11 col-md-offset-3" >
+          <h1 class="text-center"> Login </h1>
             <div class="form-group">
-              <h4>
-                Login
-              </h4>
-            </div>
             <form class="form-horizontal" action="logingo.php" method="post">
               <!-- Username -->
               <div class="form-group input-group">
@@ -66,14 +65,14 @@
               <!-- Einde remember me checkbox -->
 
               <!-- Login Knop -->
-              <div class="form-group">
-                <button class="btn btn-danger"> Login </button>
+              <div align="center">
+                <button class="btn btn-danger btn btn-outline-danger"> Login </button>
               </div>
               <!-- Einde Login Knop -->
 
               <!-- Wachtwoord vergeten -->
               <div class="form-group">
-                <a href="#"> Forget Password</a>
+                <a href="#"> Forgot Password ?</a>
               </div>
               <!-- Einde wachtwoord vergeten -->
 
@@ -81,10 +80,11 @@
           </div>
         </div>
       </div>
-
-
+    </div>
+  </div>
+</div>
       <!-- Einde login -->
-
+</div>
 
 
     <!-- Optional JavaScript -->

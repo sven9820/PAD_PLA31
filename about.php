@@ -17,26 +17,48 @@
 
   <body>
 
+    <!-- Background begin -->
     <div id="intro" class="view">
-      <div class="full-bg-img"></div>
+    <div class="full-bg-img"></div>
+    <!-- Einde background -->
 
-      <h1 class="site-heading text-center text-white d-none d-lg-block">
-        <span class="site-heading-upper  mb-3">Project Agile Development Planet</span>
-      </h1>
+    <!-- Site heading begin -->
+    <h1 class="site-heading text-center text-white d-none d-lg-block">
+      <span class="site-heading-upper  mb-3">Project Agile Development Planet</span>
+    </h1>
+    <!-- Einde site heading -->
 
       <!-- Menu bar -->
         <?php
         session_start();//start de sessie
         include "navigation.php";
         ?>
+      <!-- Einde menu bar -->
 
 
-      <!-- Tekst -->
-      <font color="white"> We have received an assignment from Planet to come up with a project.
-        As a group of 5 we have come up with an idea to measure sound at different areas and
-        with this data we will see which areas cause the most sound and what causes this.
-        We will compare these areas with each other.
-       </font>
+      <!-- Informatie in jumbotron -->
+            <section class="page-section about-heading">
+            <div class="container">
+            <div class="jumbotron jumbotron-fluid" style="background:#FFE4B5;">
+                <div class="about-heading-content">
+                  <div class="row">
+                    <div class="col-xl-9 col-lg-10 mx-auto">
+                      <div class="bg-faded rounded p-5">
+                      <h1 class="display-3 text-center">About Our Project</h1>
+                      <font color="black">We have received an assignment from Planet to come up with a project.
+                        As team 31 we decided to make a map which displays the amount of noise made in a certain area, which can be used for different purposes.
+                        The noise levels will be displayed using different colors.
+                        Red meaning the area has a lot of noise, while green will be a quiet area.
+                        There are different uses for this data our main focus is making the map useful for law enforcement and the government.</font>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          </section>
+      <!-- Einde informatie -->
 
 
     <!-- Optional JavaScript -->
