@@ -16,14 +16,18 @@
                     <a class="nav-link text-uppercase text-expanded" href="about.php">About</a>
                 </li>
                 <?php
-                if ($_SESSION['id']){
+                if (isset($_SESSION)){
                     echo "<li class=\"nav-item px-lg-4\">
                     <a class=\"nav-link text-uppercase text-expanded\" href=\"logout.php\">Logout</a>
                 </li>";
                 }
                 else echo "<li class=\"nav-item px-lg-4\">
                     <a class=\"nav-link text-uppercase text-expanded\" href=\"login.php\">Login</a>
-                </li>";
+                </li>
+                <li class=\"nav-item px-lg-4\">
+                    <a class=\"nav-link text-uppercase text-expanded\" href=\"register.php\">Registreer</a>
+                </li>
+                ";
                 ?>
                 <li class="nav-item px-lg-4">
                     <a class="nav-link text-uppercase text-expanded" href="contact.php">Contact</a>
@@ -32,3 +36,4 @@
         </div>
     </div>
 </nav>
+

@@ -1,5 +1,5 @@
 <?php
-session_start();//start de sessie
+
 class Login{
     public $name;
     public $password;
@@ -26,8 +26,12 @@ class Login{
         $hash = $results['password'];
 
         if (password_verify($_POST['pass'], $hash)){
-            session_start();//zowel, dan wordt er een sessie aangemaakt
-            $_SESSION['id'] = $results['email'];
+            session_start();
+            session_name($_POST['email'] . '_Session');
+            $_SESSION = array();
+            $_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
+            $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+            $r=session_id();
             $message = "U bent nu ingelogd. U kunt nu de site gebruiken.";
             echo "<script type='text/javascript'>alert('$message');</script>";//alert voordat de gebruiker naar de webshop komt (komt niet voor)
             header('location:main.php');//stuurt de klant direct naar het webshop

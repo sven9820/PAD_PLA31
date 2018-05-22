@@ -1,5 +1,8 @@
 <?php
 session_start();//start de sessie
+if (!$r = session_id()){
+    header("location: login.php");
+}
 $db = new PDO('mysql:host=localhost;port=3307;dbname=pad;charset=utf8', 'root', 'root');//pdo verbinding voor sql queries
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -38,7 +41,7 @@ include "chart.php";
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
-
+    <script src="https://openlayers.org/en/v4.6.4/build/ol.js" type="text/javascript"></script>
     <title>PAD_PLA31</title>
 </head>
 
@@ -56,6 +59,10 @@ include "chart.php";
     <!-- Navigation -->
     <?php
     include "navigation.php";
+    if($_SESSION['id'] = null){
+        header("location: index.php");
+
+    }
     ?>
 
     <section class="page-section clearfix">
@@ -95,7 +102,7 @@ include "chart.php";
         function planet_template_url(item_type, item_id) {
             return 'https://tiles{1-3}.planet.com/data/v1/' + item_type +'/' + item_id + '/{z}/{x}/{y}.png?api_key=' + planet_api_key
         }
-        // the geo json geometry object bounding Singapore
+        // the geo json geometry object bounding Amsterdam
         geo_json_geometry = {
             "type": "Polygon",
             "coordinates": [
@@ -114,7 +121,7 @@ include "chart.php";
             "field_name": "geometry",
             "config": geo_json_geometry
         }
-        // a search filter that filters out scenes with 50% or more cloud cover
+        // a search filter that filters out scenes with 2% or more cloud cover
         cloud_cover_filter = {
             "type": "RangeFilter",
             "field_name": "cloud_cover",
