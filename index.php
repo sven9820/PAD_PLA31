@@ -34,12 +34,10 @@
           <div class="intro">
             <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="img/intro.jpg" alt="">
             <div class="intro-text left-0 text-center bg-faded p-5 rounded">
-            <h2>  <div class="intro-lead-in">WELCOME TO</div>
-          <div class="intro-heading text-uppercase">Project Measure Sound</div>
-        </h2>
-              <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
-              <p class="mb-3">
-              </p>
+              <h2 class="display-4">  <div class="intro-lead-in">WELCOME TO</div>
+              <div class="intro-heading text-uppercase">Project Measure Sound</div>
+              </h2>
+              <a class="btn btn-warning btn btn-outline-warning text-uppercase" href="#services">Tell Me More</a>
             </div>
           </div>
         </div>
