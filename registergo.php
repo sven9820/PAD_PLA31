@@ -14,7 +14,7 @@ class register{
         return $hash;
     }
 
-    function handle($db){
+    function handle($db){//Registratie van de klant.
         if ($_POST['pass']&&$_POST['email']) {
             $name = $_POST['email'];
             $compare = $db->prepare('SELECT * FROM user WHERE email = :name');//verificatie of de gebruikersnaam uniek is
