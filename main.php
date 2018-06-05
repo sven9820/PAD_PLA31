@@ -1,7 +1,7 @@
 <?php
 session_start();//start de sessie
 if (!$r = session_id()){
-    header("location: login.php");
+    //header("location: login.php");
 }
 $db = new PDO('mysql:host=localhost;port=3307;dbname=pad;charset=utf8', 'root', 'root');//pdo verbinding voor sql queries
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
