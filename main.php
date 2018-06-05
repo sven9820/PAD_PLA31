@@ -3,7 +3,8 @@ session_start();//start de sessie
 if (!$r = session_id()){
     //header("location: login.php");
 }
-$db = new PDO('mysql:host=localhost;port=3307;dbname=pad;charset=utf8', 'root', 'root');//pdo verbinding voor sql queries
+$port = "3307";
+$db = new PDO('mysql:host=localhost;port='.$port.';dbname=pad;charset=utf8', 'root', 'root');//pdo verbinding voor sql queries. Port is 3307, adjust if launching on new machine
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 error_reporting(E_ALL);
@@ -59,7 +60,7 @@ include "chart.php";
     <!-- Navigation -->
     <?php
     include "navigation.php";
-    if($_SESSION['id'] = null){
+    if($_SESSION = null){
         header("location: index.php");
 
     }
